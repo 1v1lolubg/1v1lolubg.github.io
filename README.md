@@ -39,6 +39,20 @@ npm run preview
 5. **Contact form**: the form in `/contact` posts to `/api/contact`, which isn't implemented (Astro's static output has no server by default). Wire it to a form backend (e.g. Formspree, Netlify Forms) or add an Astro server endpoint if you deploy with an adapter.
 6. **Legal pages**: the privacy/terms/disclaimer copy is a solid starting template but is not legal advice — have a lawyer review before publishing, especially the AdSense/DART cookie clauses and any jurisdiction-specific requirements.
 
+## Deploying to GitHub Pages
+
+This repo includes `.github/workflows/deploy.yml`, which auto-builds and deploys on every push to `main`.
+
+Since your repo is `1v1lolubg.github.io` (a user/org root page), `site` in `astro.config.mjs` is already set to `https://1v1lolubg.github.io` with no `base` path needed — pages will be served at the root (e.g. `/blog`, not `/repo-name/blog`).
+
+**One-time setup on GitHub:**
+1. Push this project to the `1v1lolubg.github.io` repository, on the `main` branch.
+2. In the repo, go to **Settings → Pages**.
+3. Under **Build and deployment → Source**, choose **GitHub Actions** (not "Deploy from a branch").
+4. Push again (or re-run the workflow from the **Actions** tab) — your site will be live at `https://1v1lolubg.github.io/` a minute or two later.
+
+If you ever rename the repo to something other than `1v1lolubg.github.io` (i.e. it becomes a project page, not a user page), you'll also need to add `base: '/your-repo-name'` in `astro.config.mjs`.
+
 ## Adding a new post
 
 Create a new `.md` file in `src/content/blog/`, matching the frontmatter shape in `sample-post.md`. The `author` field must match the filename (slug) of a file in `src/content/authors/`.
