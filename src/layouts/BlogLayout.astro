@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { slugifyCategory } from '../utils/slugify';
 
 export interface Props {
   title: string;
@@ -17,7 +18,7 @@ const { title, description, ogImage, category, canonicalPath } = Astro.props;
   <slot name="head" slot="head" />
 
   <div class="container-page py-8">
-    <Breadcrumbs items={[{ label: 'Blog', href: '/blog' }, { label: category, href: `/blog?category=${encodeURIComponent(category)}` }, { label: title }]} />
+    <Breadcrumbs items={[{ label: 'Blog', href: '/blog' }, { label: category, href: `/blog/category/${slugifyCategory(category)}` }, { label: title }]} />
   </div>
 
   <article class="container-page pb-16">

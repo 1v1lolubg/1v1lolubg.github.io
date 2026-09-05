@@ -3,18 +3,13 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-
-const requestedCategory = Astro.url.searchParams.get('category');
+import { slugifyCategory } from '../../utils/slugify';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
 const categories = [...new Set(allPosts.map((p) => p.data.category))];
-
-const posts = requestedCategory
-  ? allPosts.filter((p) => p.data.category === requestedCategory)
-  : allPosts;
 ---
 
 <BaseLayout
@@ -30,13 +25,10 @@ const posts = requestedCategory
     <p class="mb-8 max-w-2xl text-slate-600">Every article we've published, newest first.</p>
 
     <div class="mb-8 flex flex-wrap gap-3">
-      <a href="/blog" class={`pill ${!requestedCategory ? '!bg-orange-600 !text-white !border-orange-600' : ''}`}>All</a>
+      <a href="/blog" class="pill !bg-orange-600 !text-white !border-orange-600">All</a>
       {
         categories.map((cat) => (
-          <a
-            href={`/blog?category=${encodeURIComponent(cat)}`}
-            class={`pill ${requestedCategory === cat ? '!bg-orange-600 !text-white !border-orange-600' : ''}`}
-          >
+          <a href={`/blog/category/${slugifyCategory(cat)}`} class="pill">
             {cat}
           </a>
         ))
@@ -44,14 +36,14 @@ const posts = requestedCategory
     </div>
 
     {
-      posts.length > 0 ? (
+      allPosts.length > 0 ? (
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {allPosts.map((post) => (
             <PostCard post={post} />
           ))}
         </div>
       ) : (
-        <p class="text-slate-500">No articles found in this category yet.</p>
+        <p class="text-slate-500">No articles published yet.</p>
       )
     }
   </section>

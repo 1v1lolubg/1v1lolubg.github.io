@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
+import { slugifyCategory } from '../utils/slugify';
 
 const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -38,7 +39,7 @@ const categories = [...new Set(allPosts.map((p) => p.data.category))];
       <section class="container-page py-8">
         <div class="flex flex-wrap gap-3">
           {categories.map((cat) => (
-            <a href={`/blog?category=${encodeURIComponent(cat)}`} class="pill">
+            <a href={`/blog/category/${slugifyCategory(cat)}`} class="pill">
               {cat}
             </a>
           ))}

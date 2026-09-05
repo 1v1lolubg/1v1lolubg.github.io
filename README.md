@@ -57,6 +57,12 @@ If you ever rename the repo to something other than `1v1lolubg.github.io` (i.e. 
 
 `@astrojs/sitemap` was removed from this project — the version available at build time crashed with `Cannot read properties of undefined (reading 'reduce')` on GitHub Actions. If you want an auto-generated sitemap later, run `npm install @astrojs/sitemap@latest`, add it back to `integrations` in `astro.config.mjs`, and test a build locally first before pushing.
 
+## Category filtering — fixed a static-site bug
+
+The category pills used to link to `/blog?category=X`, reading `Astro.url.searchParams` to filter posts. That doesn't work on a static export (GitHub Pages, etc.) — the HTML is generated once at build time with no knowledge of query strings, so every visitor got the same unfiltered page no matter what the URL said.
+
+This is now fixed with a real static route: `src/pages/blog/category/[category].astro` uses `getStaticPaths()` to pre-render one fully-baked HTML page per category (e.g. `/blog/category/personal-finance`), each already containing only that category's posts. All category pills (homepage, blog archive, article breadcrumbs) now link to these pages instead of a query string.
+
 ## Ads are currently disabled
 
 Since AdSense isn't approved yet, all ad-related code has been removed for now:
