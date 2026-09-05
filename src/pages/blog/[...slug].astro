@@ -2,7 +2,6 @@
 import { getCollection, getEntry, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import PostCard from '../../components/PostCard.astro';
-import AdSlot from '../../components/AdSlot.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -111,11 +110,7 @@ const articleSchema = {
     />
   </div>
 
-  <AdSlot slotId="1111111111" className="not-prose" />
-
   <Content />
-
-  <AdSlot slotId="2222222222" className="not-prose" />
 
   <div slot="after-content">
     {author && (
