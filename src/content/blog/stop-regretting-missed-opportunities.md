@@ -11,7 +11,6 @@ tags: ["mindset", "decision making", "growth", "career"]
 isFeatured: false
 draft: false
 ---
-```
 
 Have you ever found yourself lying awake at 2:00 AM, replaying a single moment from five years ago? If you want to learn **how to stop regretting missed opportunities**, you first have to understand why your brain obsesses over the past. We convince ourselves that one bolder choice would have launched our careers or relationships into an entirely different stratosphere.
 
