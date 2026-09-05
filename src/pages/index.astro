@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featuredPosts = allPosts.filter((p) => p.data.isFeatured).slice(0, 2);
+const recentPosts = allPosts.filter((p) => !featuredPosts.includes(p)).slice(0, 6);
+
+const categories = [...new Set(allPosts.map((p) => p.data.category))];
+---
+
+<BaseLayout
+  title="The Orange Desk — Practical Guides on Money, Tech, and Everyday Decisions"
+  description="Fact-checked, editor-reviewed guides on personal finance, technology, and everyday decisions — written by named authors with real credentials."
+>
+  <section class="border-b border-orange-100 bg-gradient-to-b from-orange-50/60 to-stone-50">
+    <div class="container-page flex flex-col items-start gap-6 py-16 sm:py-20">
+      <span class="pill">Guides worth trusting</span>
+      <h1 class="max-w-2xl font-serif text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">
+        Practical answers to the questions you actually have.
+      </h1>
+      <p class="max-w-xl text-lg text-slate-600">
+        Every article here is written by a named author, reviewed by a second editor, and updated when the facts change. No filler, no guesswork.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href="/blog" class="btn-primary">Browse the blog</a>
+        <a href="/editorial-team" class="btn-secondary">Meet the editorial team</a>
+      </div>
+    </div>
+  </section>
+
+  {
+    categories.length > 0 && (
+      <section class="container-page py-8">
+        <div class="flex flex-wrap gap-3">
+          {categories.map((cat) => (
+            <a href={`/blog?category=${encodeURIComponent(cat)}`} class="pill">
+              {cat}
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    featuredPosts.length > 0 && (
+      <section class="container-page py-8">
+        <h2 class="mb-6 font-serif text-2xl font-semibold text-slate-900">Featured</h2>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {featuredPosts.map((post) => (
+            <PostCard post={post} featured />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <section class="container-page py-8 pb-20">
+    <div class="mb-6 flex items-center justify-between">
+      <h2 class="font-serif text-2xl font-semibold text-slate-900">Recent Articles</h2>
+      <a href="/blog" class="text-sm font-semibold text-orange-600 hover:text-orange-700">View all &rarr;</a>
+    </div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {recentPosts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+    {recentPosts.length === 0 && featuredPosts.length === 0 && (
+      <p class="text-slate-500">No articles published yet — check back soon.</p>
+    )}
+  </section>
+</BaseLayout>

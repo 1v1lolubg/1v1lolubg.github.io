@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+---
+
+<BaseLayout
+  title="Disclaimer"
+  description="Affiliate relationships, earnings disclosures, and general content disclaimers for The Orange Desk."
+>
+  <div class="container-page py-8">
+    <Breadcrumbs items={[{ label: 'Disclaimer' }]} />
+  </div>
+
+  <section class="container-page pb-16">
+    <div class="prose prose-orange lg:prose-lg mx-auto max-w-3xl">
+      <h1>Disclaimer</h1>
+      <p><em>Last updated: February 2026</em></p>
+
+      <h2>General information only</h2>
+      <p>
+        The content on The Orange Desk is for general informational and educational purposes only. It is not
+        intended as, and should not be taken as, financial, legal, medical, tax, or other professional advice.
+        Always do your own research and consult a qualified professional before making decisions based on
+        anything you read here.
+      </p>
+
+      <h2>Affiliate disclosure</h2>
+      <p>
+        Some articles on this Site may contain affiliate links. If you click one of these links and make a
+        purchase, we may earn a small commission at no additional cost to you. We only recommend products or
+        services we believe add genuine value to our readers, and affiliate relationships do not influence
+        our editorial opinions or ratings.
+      </p>
+
+      <h2>Advertising disclosure</h2>
+      <p>
+        This Site displays advertisements served by Google AdSense. Advertisers have no control over or
+        influence on our editorial content. See our <a href="/privacy-policy">privacy policy</a> for details
+        on how advertising cookies are used.
+      </p>
+
+      <h2>No guarantee of results</h2>
+      <p>
+        Any examples, figures, or outcomes mentioned in our articles are illustrative and are not guarantees
+        of results. Individual circumstances vary, and past performance or examples do not guarantee future
+        outcomes.
+      </p>
+
+      <h2>Accuracy of information</h2>
+      <p>
+        We work to keep information accurate and current, and note publish and update dates on every article.
+        However, we cannot guarantee that all information remains accurate after publication, particularly for
+        time-sensitive topics like pricing, rates, or regulations. Please verify critical information
+        independently.
+      </p>
+
+      <h2>Questions</h2>
+      <p>
+        If you have questions about this disclaimer, contact us at
+        <a href="mailto:hello@example-orange-blog.com">hello@example-orange-blog.com</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
