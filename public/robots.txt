@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.example-orange-blog.com/sitemap-index.xml
+Sitemap: https://1v1lolubg.github.io/sitemap-index.xml

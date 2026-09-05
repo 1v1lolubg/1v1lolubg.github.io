@@ -19,7 +19,7 @@ const authorPosts = allPosts
   .filter((p) => p.data.author.slug === author.slug)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const siteUrl = 'https://www.example-orange-blog.com';
+const siteUrl = Astro.site?.origin ?? 'https://1v1lolubg.github.io';
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',

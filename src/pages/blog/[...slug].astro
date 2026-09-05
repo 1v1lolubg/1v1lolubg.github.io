@@ -35,7 +35,7 @@ const formattedUpdatedDate = post.data.updatedDate?.toLocaleDateString('en-US', 
   day: 'numeric',
 });
 
-const siteUrl = 'https://www.example-orange-blog.com';
+const siteUrl = Astro.site?.origin ?? 'https://1v1lolubg.github.io';
 
 const articleSchema = {
   '@context': 'https://schema.org',
