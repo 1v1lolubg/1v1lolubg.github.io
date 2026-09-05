@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Runs on every push to the main branch
+  push:
+    branches: [main]
+  # Allows manually triggering the workflow from the Actions tab
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between an in-progress run and latest
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install, build, and upload your site
+        uses: withastro/action@v3
+        # By default this action builds with `npm ci && npm run build`
+        # and automatically detects your package manager (npm/yarn/pnpm).
+        # No `path` or `node-version` input needed unless your project
+        # lives in a subfolder or needs a specific Node version.
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
