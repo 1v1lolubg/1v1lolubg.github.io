@@ -53,6 +53,10 @@ Since your repo is `1v1lolubg.github.io` (a user/org root page), `site` in `astr
 
 If you ever rename the repo to something other than `1v1lolubg.github.io` (i.e. it becomes a project page, not a user page), you'll also need to add `base: '/your-repo-name'` in `astro.config.mjs`.
 
+## Sitemap (optional)
+
+`@astrojs/sitemap` was removed from this project — the version available at build time crashed with `Cannot read properties of undefined (reading 'reduce')` on GitHub Actions. If you want an auto-generated sitemap later, run `npm install @astrojs/sitemap@latest`, add it back to `integrations` in `astro.config.mjs`, and test a build locally first before pushing.
+
 ## Adding a new post
 
 Create a new `.md` file in `src/content/blog/`, matching the frontmatter shape in `sample-post.md`. The `author` field must match the filename (slug) of a file in `src/content/authors/`.
